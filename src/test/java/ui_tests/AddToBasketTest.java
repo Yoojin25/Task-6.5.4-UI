@@ -1,5 +1,6 @@
 package ui_tests;
 
+import base.BaseTest;
 import jdk.jfr.Description;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,16 +12,13 @@ import static web_elements.AddToBasketElements.*;
 import static web_elements.GeneralElements.catalogButton;
 import static web_elements.GeneralElements.firstProductOnHomePage;
 
-public class TestCase3 {
+public class AddToBasketTest extends BaseTest {
 
     @Test
     @DisplayName("Добавление товара в корзину")
     @Description("Осуществляется переход на страницу с бытовой техникой; товар добавляется в корзину; название и цена " +
             "товара в корзине соответствуют названию и цене на странице каталога")
     public void addToBasketTest() {
-
-//      1. Открыть https://www.wildberries.ru/
-        openBrowser();
 
 //      2. Нажать "Фильтры"
         waitUntilVisibilityOf(driver, firstProductOnHomePage);
@@ -57,7 +55,9 @@ public class TestCase3 {
         clickSelect(driver, basketButton);
 
 //      Проверка, что текст и цена товара соответствует цене и названию товара из предыдущих шагов
-        waitUntilVisibilityOf(driver, chatButton);
+        waitUntilVisibilityOf(driver, chatButton); // Как раз столкнулась с тем, что тест отрабатывает быстрее, чем
+        // загружается цена товара, поэтому добавила это ожидание с элементом "чата". Правильно понимаю, что это имеется
+        // в виду в 5-ом пункте замечаний?
 
         String productNameInBasketText = getElementText(driver, productNameInBasket);
         String productPriceInBasketText = getElementText(driver, productPriceInBasket);
@@ -73,7 +73,5 @@ public class TestCase3 {
 
 //      Проверка, что кнопка "Заказать" активна для нажатия
         AssertAddToBasket.buttonAvailable(driver, orderButton);
-
-        closeBrowser();
     }
 }

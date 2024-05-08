@@ -1,26 +1,25 @@
 package ui_tests;
 
+import base.BaseTest;
 import jdk.jfr.Description;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import steps.asserts.AssertFilters;
 import steps.asserts.AssertGeneral;
 
+import static steps.FiltersSteps.assertAllFiltersDisplayed;
 import static steps.GeneralSteps.*;
 import static web_elements.FiltersElements.*;
 import static web_elements.GeneralElements.catalogButton;
 import static web_elements.GeneralElements.firstProductOnHomePage;
 
-public class TestCase4 {
+public class FiltersTest extends BaseTest {
 
     @Test
     @DisplayName("Работа с фильтрами")
     @Description("Фильтры активируются; выбранные фильтры отображаются на странице каталога; количество товара на " +
             "странице фильтров соответсвует количеству на странице каталога")
     public void filtersTest() {
-
-//      1. Открыть https://www.wildberries.ru/
-        openBrowser();
 
 //      2. Нажать "Фильтры"
         waitUntilVisibilityOf(driver, firstProductOnHomePage);
@@ -54,10 +53,7 @@ public class TestCase4 {
         clickSelect(driver, filterResult);
 
 //      Проверка, что выбранные фильтры отображаются на странице
-        AssertFilters.filterIsDisplayed(driver, radioMax3DaysOnPage);
-        AssertFilters.filterIsDisplayed(driver, priceRangeOnPage);
-        AssertFilters.filterIsDisplayed(driver, brandOnPage);
-        AssertFilters.filterIsDisplayed(driver, screenOnPage);
+        assertAllFiltersDisplayed(driver, radioMax3DaysOnPage,priceRangeOnPage, brandOnPage, screenOnPage);
 
 //      Проверка, что появилась кнопка "Сбросить все"
         AssertFilters.filterIsDisplayed(driver, resetFilters);
@@ -74,7 +70,5 @@ public class TestCase4 {
         AssertFilters.filterActivated(driver, radioMax3DaysActive, "class", "radio-with-text j-list-item selected");
         AssertFilters.filterActivated(driver, brandActive, "class", "checkbox-with-text j-list-item selected");
         AssertFilters.filterActivated(driver, screenActive, "class", "checkbox-with-text j-list-item selected");
-
-        closeBrowser();
     }
 }

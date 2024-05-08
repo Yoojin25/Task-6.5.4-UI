@@ -12,4 +12,5 @@ public class ChangeCityElements {
     public static By selectButton = By.xpath("//button[@class='details-self__btn btn-main']");
     public static By homePageUrl = By.xpath("//base");
     public static By addressOnHomePage = By.xpath("//span[@data-wba-header-name='DLV_Adress']");
+    public static By containsCity = By.xpath("(//span[@class='address-item__name-text'])[1]/span[contains(text(), 'Санкт-Петербург')]");
 }

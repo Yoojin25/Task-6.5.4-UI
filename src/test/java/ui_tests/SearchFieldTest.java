@@ -1,5 +1,6 @@
 package ui_tests;
 
+import base.BaseTest;
 import jdk.jfr.Description;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,16 +10,13 @@ import steps.asserts.AssertSearchField;
 import static steps.GeneralSteps.*;
 import static web_elements.SearchFieldElements.*;
 
-public class TestCase1 {
+public class SearchFieldTest extends BaseTest {
 
     @Test
     @DisplayName("Работа с поисковой строкой")
     @Description("Текст 'Iphone 13' присутствует; первый фильтр пустой; применен фильтр 'По популярности'; у первого " +
             "устройства из списка бренд - Apple")
     public void searchFieldTest() {
-
-//      1. Открыть: https://www.wildberries.ru/
-        openBrowser();
 
 //      2. Нажать на поисковую строку
 //      3. Ввести "Iphone 13"
@@ -44,7 +42,5 @@ public class TestCase1 {
 
 //      Проверить, что строка стала пустой
         AssertSearchField.emptyElement(driver, searchField);
-
-        closeBrowser();
     }
 }

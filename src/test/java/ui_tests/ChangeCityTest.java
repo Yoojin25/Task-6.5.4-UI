@@ -1,5 +1,6 @@
 package ui_tests;
 
+import base.BaseTest;
 import jdk.jfr.Description;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,15 +10,12 @@ import steps.asserts.AssertGeneral;
 import static steps.GeneralSteps.*;
 import static web_elements.ChangeCityElements.*;
 
-public class TestCase2 {
+public class ChangeCityTest extends BaseTest {
 
     @Test
     @DisplayName("Смена города")
     @Description("Осуществляются переходы на страницы пункта выдачи и на главную страницу WB, адреса совпадают")
     public void changeCityTest() {
-
-//      1. Открыть https://www.wildberries.ru/
-        openBrowser();
 
 //      2. Кликнуть на кнопку "Смена города"
         clickSelect(driver, addressButton);
@@ -28,6 +26,8 @@ public class TestCase2 {
         dataInput(driver, addressInput, city);
 
 //      4. Выбрать первый адрес из списка адресов
+        waitTextToBePresentInElement(driver, containsCity, "Санкт-Петербург");
+
         String firstAddressText = getElementText(driver, firstAddress);
 
         clickSelect(driver, firstAddress);
@@ -53,7 +53,5 @@ public class TestCase2 {
         String addressOnHomePageText = getElementText(driver, addressOnHomePage);
 
         AssertGeneral.textMatch(addressSelectedPickPointText, addressOnHomePageText);
-
-        closeBrowser();
     }
 }
